@@ -1,7 +1,7 @@
 from PIL import Image
 
 
-obrazek = Image.open("hunter")
+obrazek = Image.open("hunter.jpg")
 sirka, vyska = obrazek.size
 
 for x in range(sirka):
