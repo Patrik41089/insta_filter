@@ -1,38 +1,83 @@
-from PIL import Image
-from PIL import ImageFilter
+from PIL import Image, ImageFilter
+from colorama import Fore, Style  # Importujte Fore pro barvy textu, Style pro reset barvy
+#pip install pillow
+#pip install colorama
 
-def apply_filter(image, filter_type):
-    width, height = image.size
+def program():
+    obrazek = Image.open("hunter.jpg")
+    sirka, vyska = obrazek.size
 
-    for x in range(width):
-        for y in range(height):
-            r, g, b = image.getpixel((x, y))
+    while True:
+        volba = input("Zadejte filtr: (1, 2, 3, 4): ")
+        if volba == "1":
+            print(Fore.GREEN + "Zelený" + Style.RESET_ALL + " filtr")
+            souhlas = input("Chcete použít ZELENÝ filtr? (pouze ano/ne): ").lower()
+            if souhlas == "ano":
+                for x in range(sirka):
+                    for y in range(vyska):
+                        r, g, b = obrazek.getpixel((x, y))
+                        g = min(255, max(0, g + 100))
+                        obrazek.putpixel((x, y), (r, g, b))
+                break
+            elif souhlas == "ne":
+                print("Znovu vyberte filtr.")
+            else:
+                print("Neplatný vstup")
+                print("Znovu vyberte filtr.")
+        elif volba == "2":
+            print(Fore.RED + "Červený" + Style.RESET_ALL + " filtr")
+            souhlas = input("Chcete použít ČERVENÝ filtr? (pouze ano/ne): ").lower()
+            if souhlas == "ano":
+                for x in range(sirka):
+                    for y in range(vyska):
+                        r, g, b = obrazek.getpixel((x, y))
+                        r = min(255, max(0, r + 100))
+                        obrazek.putpixel((x, y), (r, g, b))
+                break
+            elif souhlas == "ne":
+                print("Znovu vyberte filtr.")
+            else:
+                print("Neplatný vstup")
+                print("Znovu vyberte filtr.")
+        elif volba == "3":
+            print(Fore.BLUE + "Modrý" + Style.RESET_ALL + " filtr")
+            souhlas = input("Chcete použít MODRÝ filtr? (pouze ano/ne): ").lower()
+            if souhlas == "ano":
+                for x in range(sirka):
+                    for y in range(vyska):
+                        r, g, b = obrazek.getpixel((x, y))
+                        b = min(255, max(0, b + 100))
+                        obrazek.putpixel((x, y), (r, g, b))
+                        break
+            elif souhlas == "ne":
+                print("Znovu vyberte filtr.")
+            else:
+                print("Neplatný vstup")
+                print("Znovu vyberte filtr.")
+        elif volba == "4":
+            print(Fore.YELLOW + "Rozmazávací" + Style.RESET_ALL + " filtr")
+            souhlas = input("Chcete použít filtr ROZMAZÁVACÍ? (pouze ano/ne): ").lower()
+            if souhlas == "ano":
+                obrazek = obrazek.filter(ImageFilter.BLUR)
+                break
+            elif souhlas == "ne":
+                print("Znovu vyberte filtr.")
+            else:
+                print("Neplatný vstup")
+                print("Znovu vyberte filtr.")
 
-            if filter_type == "Filter 1":
-                g = min(255, max(0, g + 50))
-            elif filter_type == "Filter 2":
-                r = min(255, max(0, r + 50))
-            elif filter_type == "Filter 3":
-                b = min(255, max(0, b + 50))
-            elif filter_type == "Filter 4":
-                image = image.filter(ImageFilter.BLUR)
+    obrazek.show()
 
-            image.putpixel((x, y), (r, g, b))
+program()
 
-    return image
+         
 
-def main():
-    image = Image.open("hunter.jpg")
-    filter_type = input("Vyberte filtr (1, 2, 3, 4): ")
+         
 
-    if filter_type in ["1", "2", "3", "4"]:
-        image_filtered = apply_filter(image, "Filter " + filter_type)
-        image_filtered.show()
-    else:
-        print("Neplatný vstup.")
 
-if __name__ == "__main__":
-    main()
+
+
+
 
 
 
